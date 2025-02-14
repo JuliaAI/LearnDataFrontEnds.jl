@@ -22,12 +22,13 @@ Additionally, when `observations = fit(learner, data)` and the
 been implemented, one has:
 
 - `observations.target`: length `n` target vector (`multitarget=false`) or size `(q, n)`
-  target matrix (`multivariate=true`)
+  target matrix (`multivariate=true`); this array has the same element type as the
+  user-provided one in the `Saffron` case
 
 # Specific to `Sage`
 
-If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, the above
-target representation has an integer element type controlled by `code_type`, and we
+If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, then
+`observations.target` has an integer element type controlled by `code_type`, and we
 additionally have:
 
 - `observations.classes`: A categorical vector of the ordered target classes, as actually

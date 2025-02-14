@@ -10,6 +10,10 @@ import StatsModels.@formula
 
 # include("_some_learners.jl")
 
+@testset "bad `Saffron` constructor argument" begin
+    @test_throws LearnDataFrontEnds.ERR_BAD_LEVELS Saffron(code_type=:junk)
+end
+
 n = 20
 rng = StableRNG(345)
 c, t, a, t2 = randn(rng, n), rand(rng, n), rand(rng, n), rand(rng, n)

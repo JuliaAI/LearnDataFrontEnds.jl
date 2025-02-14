@@ -4,7 +4,8 @@
 Module providing the following commonly applicable data front ends for implementations of
 the [LearnAPI.jl](https://juliaai.github.io/LearnAPI.jl/dev/) interface:
 
-- [`Saffron`](@ref): good for most supervised regressors operating on structured data
+- [`Saffron`](@ref): good for most supervised leaners, typically regressors, operating on
+  structured data
 
 - [`Sage`](@ref): good for most supervised classifiers operating on structured data
 

@@ -1,9 +1,10 @@
 """
     Saffron(; multitarget=false, view=false)
 
-A LearnAPI.jl data front end implemented for some supervised regressors consuming
-structured data. If `learner` implements this front end, then `data` in the call
-[`LearnAPI.fit`](@extref)`(learner, data)` can take any of the following forms:
+A LearnAPI.jl data front end implemented for some supervised learners, typically
+regressors, consuming structured data. If `learner` implements this front end, then `data`
+in the call [`LearnAPI.fit`](@extref)`(learner, data)` can take any of the following
+forms:
 
 - `(X, y)`, where `X` is a feature matrix or table and `y` is a target vector, matrix or
   table
@@ -145,6 +146,10 @@ finalize(x, names, y, ::Saffron{<:Any,<:Any,IntCode}) =
 finalize(x, names, y, ::Saffron{<:Any,<:Any,SmallIntCode}) =
     finalize(x, names, y, CategoricalArrays.refcode)
 function finalize(x, names, y, int)  # here `int` is `levelcode` or `refcode` function
+    y isa Union{
+        CategoricalArrays.CategoricalArray,
+        SubArray{<:Any, <:Any, <:CategoricalArrays.CategoricalArray},
+    } || throw(ERR_EXPECTED_CATEGORICAL)
     l = LearnDataFrontEnds.classes(y)
     u = unique(y)
     mask = map(in(u), l)

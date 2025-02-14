@@ -73,6 +73,9 @@ training.
 
 # Implementation
 
+If a core algorithm is happy to work with a `CategoricalArray` target, without
+integer-encoding it, consider using the [`Saffron`](@ref) frontend instead.
+
 For learners of type `MyLearner`, with `LearnAPI.fit(::MyLearner, data)` returning
 objects of type `MyModel`, implement the `Sage` data front
 by making these declarations:
