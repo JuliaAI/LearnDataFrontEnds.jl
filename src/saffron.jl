@@ -14,7 +14,7 @@ structured data. If `learner` implements this front end, then `data` in the call
 - `(T, formula)`, where `formula` is an R-style formula, as provided by
   [StatsModels.jl](https://juliastats.org/StatsModels.jl/latest/)
 
-$DOC_FORMULAS.
+$DOC_FORMULAS
 
 Similarly, if [`LearnAPI.learner`](@extref)`(model) == learner`, then `data` in the call
 [`LearnAPI.predict`](@extref)`(model, data)` or [`LearnAPI.transform`](@extref)`(model,

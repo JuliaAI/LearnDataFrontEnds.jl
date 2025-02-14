@@ -14,7 +14,7 @@ structured data. If `learner` implements this front end, then `data` in the call
 - `(T, formula)`, where `formula` is an R-style formula, as provided by
   [StatsModels.jl](https://juliastats.org/StatsModels.jl/latest/)
 
-$DOC_FORMULAS.
+$DOC_FORMULAS
 
 Unlike StatsModels.jl, the left-hand side of a formula (the target) is not one-hot
 encoded.

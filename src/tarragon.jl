@@ -14,7 +14,7 @@ forms:
   by [StatsModels.jl](https://juliastats.org/StatsModels.jl/latest/) (with `0` for the
   "left-hand side").
 
-$DOC_FORMULAS.
+$DOC_FORMULAS
 
 # Back end API
 
