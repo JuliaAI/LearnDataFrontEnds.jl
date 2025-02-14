@@ -64,7 +64,7 @@ by making these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Saffron() # optionally specify `view=true` and/or `multitarget=true`
+const frontend = Saffron() # optionally specify `view=true` and/or `multitarget=true`
 
 # both `obs` methods return objects of abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)

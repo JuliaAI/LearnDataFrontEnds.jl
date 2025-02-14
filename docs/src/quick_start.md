@@ -16,7 +16,7 @@ returning objects of type `MyModel`, make these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Saffron()
+const frontend = Saffron()
 
 # both methods below return objects with abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
@@ -72,7 +72,7 @@ returning objects of type `MyModel`, make these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Sage()
+const frontend = Sage()
 
 # both methods below return objects with abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
@@ -138,7 +138,7 @@ objects of type `MyModel`, make these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Tarragon()
+const frontend = Tarragon()
 
 # both the following return objects with abstract type `Obs`:
 LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)

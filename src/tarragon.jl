@@ -44,7 +44,7 @@ by making these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Tarragon() # optionally specify `view=true`
+const frontend = Tarragon() # optionally specify `view=true`
 
 # both `obs` below return objects with abstract type `Obs`:
 LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)

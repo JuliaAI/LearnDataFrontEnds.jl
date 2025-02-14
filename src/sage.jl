@@ -82,7 +82,7 @@ by making these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Sage() # see above for options
+const frontend = Sage() # see above for options
 
 # both `obs` methods return objects of abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
