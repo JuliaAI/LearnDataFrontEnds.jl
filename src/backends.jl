@@ -118,7 +118,7 @@ end
 function Base.show(io::IO, ::MIME"text/plain", observations::SageObs)
     A = observations.features
     y = observations.target
-    println(io, "SaffronObs")
+    println(io, "SageObs")
     println(io, "  features :: $(typeof(A))($(size(A)))")
     println(io, "  names: $(observations.names)")
     println(io, "  target :: $(typeof(y))($(size(y)))")
