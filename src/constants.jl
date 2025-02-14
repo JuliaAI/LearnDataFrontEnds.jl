@@ -11,3 +11,8 @@ const DOC_FORMULAS = """
 const ERR_BAD_LEVELS = ArgumentError(
     "`levels` must be one of these: `:raw`, `:int`, `:small`. "
 )
+
+const ERR_EXPECTED_CATEGORICAL = ArgumentError(
+    "Targets (or target columns of a table) must be `CategoricalArray`, "*
+        "or subarrays thereof. "
+)

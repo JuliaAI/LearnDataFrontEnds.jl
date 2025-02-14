@@ -1,9 +1,10 @@
 """
     Saffron(; multitarget=false, view=false)
 
-A LearnAPI.jl data front end implemented for some supervised regressors consuming
-structured data. If `learner` implements this front end, then `data` in the call
-[`LearnAPI.fit`](@extref)`(learner, data)` can take any of the following forms:
+A LearnAPI.jl data front end implemented for some supervised learners, typically
+regressors, consuming structured data. If `learner` implements this front end, then `data`
+in the call [`LearnAPI.fit`](@extref)`(learner, data)` can take any of the following
+forms:
 
 - `(X, y)`, where `X` is a feature matrix or table and `y` is a target vector, matrix or
   table
@@ -63,11 +64,11 @@ by making these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Saffron() # optionally specify `view=true` and/or `multitarget=true`
+const frontend = Saffron() # optionally specify `view=true` and/or `multitarget=true`
 
 # both `obs` methods return objects of abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
-LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
@@ -145,6 +146,10 @@ finalize(x, names, y, ::Saffron{<:Any,<:Any,IntCode}) =
 finalize(x, names, y, ::Saffron{<:Any,<:Any,SmallIntCode}) =
     finalize(x, names, y, CategoricalArrays.refcode)
 function finalize(x, names, y, int)  # here `int` is `levelcode` or `refcode` function
+    y isa Union{
+        CategoricalArrays.CategoricalArray,
+        SubArray{<:Any, <:Any, <:CategoricalArrays.CategoricalArray},
+    } || throw(ERR_EXPECTED_CATEGORICAL)
     l = LearnDataFrontEnds.classes(y)
     u = unique(y)
     mask = map(in(u), l)

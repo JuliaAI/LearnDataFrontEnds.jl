@@ -73,17 +73,20 @@ training.
 
 # Implementation
 
+If a core algorithm is happy to work with a `CategoricalArray` target, without
+integer-encoding it, consider using the [`Saffron`](@ref) frontend instead.
+
 For learners of type `MyLearner`, with `LearnAPI.fit(::MyLearner, data)` returning
 objects of type `MyModel`, implement the `Sage` data front
 by making these declarations:
 
 ```julia
 using LearnDataFrontEnds
-frontend = Sage() # see above for options
+const frontend = Sage() # see above for options
 
 # both `obs` methods return objects of abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
-LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)

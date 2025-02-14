@@ -171,6 +171,13 @@ end
     @test CA.levels(yy) == CA.levels(y)
 end
 
+@testset "informative error if fitobs supplied non-categorical target" begin
+    @test_throws(
+        LearnDataFrontEnds.ERR_EXPECTED_CATEGORICAL,
+        fitobs("learner", ((; x=fill(1, 3)), [1 ,2, 3]), Sage())
+    )
+end
+
 # from test/_some_learners.jl:
 learner = LearnerReportingNames()
 model = fit(learner, X)
