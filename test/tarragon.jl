@@ -111,6 +111,10 @@ LearnAPI.learner(model::TruncatedSVDFitted) = model.learner
 LearnAPI.obs(learner::TruncatedSVD, data) = fitobs(learner, data, Tarragon())
 LearnAPI.obs(model::TruncatedSVDFitted, data) = obs(model, data, Tarragon())
 
+# training data deconstructor:
+LearnAPI.features(learner::TruncatedSVD, data) =
+    LearnAPI.features(learner, data, Tarragon())
+
 function LearnAPI.fit(learner::TruncatedSVD, observations::Obs; verbosity=1)
 
     x = observations.features # p x n matrix
@@ -198,6 +202,7 @@ model0 = fit(learner, X)
 @testset "matrix features for fit" begin
     observations = obs(learner, x)
     feats = LearnAPI.features(learner, observations)
+    @test LearnAPI.features(learner, x).features == feats.features
     @test feats isa Obs
     @test feats.features == x
     @test feats.names == [:x1, :x2, :x3, :x4, :x5]
