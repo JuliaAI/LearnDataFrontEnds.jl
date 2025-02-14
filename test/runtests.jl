@@ -2,6 +2,7 @@ using Test
 
 test_files = [
     "tools.jl",
+    "backends.jl",
     "saffron.jl",
     "sage.jl",
     "tarragon.jl",

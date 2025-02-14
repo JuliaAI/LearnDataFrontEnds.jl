@@ -186,3 +186,9 @@ end
 
 # involutivity:
 obs(model, observations::BasicObs, ::Tarragon) = observations
+
+# data deconstructors:
+LearnAPI.features(learner, observations::BasicObs, ::Tarragon) =
+    BasicObs(observations.features, observations.names)
+LearnAPI.features(learner, data, frontend::Tarragon) =
+    LearnAPI.features(learner, obs(learner, data), frontend)
