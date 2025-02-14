@@ -141,8 +141,8 @@ using LearnDataFrontEnds
 const frontend = Tarragon()
 
 # both the following return objects with abstract type `Obs`:
-LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
+LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
