@@ -60,13 +60,13 @@ training.
   `view=false`. The first option is only available for tables with transposable element
   types (e.g., floats).
 
-- `code_type` determines the internal representation `y` of the target. Possible values are:
+- `code_type`: determines the internal representation `y` of the target. Possible values are:
 
   - `:small`: the element type of `y` is the reference (code) type `R <: Unsigned` for the
     categorical array supplied by user (internal eltype for the array). Choose this to
     minimize memory requirements.
 
-  - `:int`: `y` has an `Integer` element type `widen(R) <: Integer`. Choose this to
+  - `:int`: the element type of `y` is `widen(R) <: Integer`. Choose this to
     safeguard against arithmetic overflows if these are likely; run `@doc widen` for
     details.
 
