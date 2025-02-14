@@ -20,7 +20,7 @@ const frontend = Saffron()
 
 # both methods below return objects with abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
-LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
@@ -76,7 +76,7 @@ const frontend = Sage()
 
 # both methods below return objects with abstract type `Obs`:
 LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
-LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
