@@ -4,6 +4,8 @@ LearnDataFrontEnds.jl is a package for developers writing
 [LearnAPI.jl](https://juliaai.github.io/LearnAPI.jl/dev/) interfaces for algorithms in
 machine learning or statistics.
 
+
+[![Lifecycle:Maturing](https://img.shields.io/badge/Lifecycle-Maturing-007EC6)]()
 [![Build Status](https://github.com/JuliaAI/LearnDataFrontEnds.jl/workflows/CI/badge.svg)](https://github.com/JuliaAI/LearnDataFrontEnds.jl/actions)
 [![codecov](https://codecov.io/gh/JuliaAI/LearnDataFrontEnds.jl/graph/badge.svg?token=9IWT9KYINZ)](https://codecov.io/gh/JuliaAI/LearnDataFrontEnds.jl?branch=dev)
 [![Docs](https://img.shields.io/badge/docs-dev-blue.svg)](https://juliaai.github.io/LearnDataFrontEnds.jl/dev/)
