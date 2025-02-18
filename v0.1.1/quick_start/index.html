@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick start · LearnDataFrontEnds.jl</title><meta name="title" content="Quick start · LearnDataFrontEnds.jl"/><meta property="og:title" content="Quick start · LearnDataFrontEnds.jl"/><meta property="twitter:title" content="Quick start · LearnDataFrontEnds.jl"/><meta name="description" content="Documentation for LearnDataFrontEnds.jl."/><meta property="og:description" content="Documentation for LearnDataFrontEnds.jl."/><meta property="twitter:description" content="Documentation for LearnDataFrontEnds.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">LearnDataFrontEnds.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Quick start</a><ul class="internal"><li><a class="tocitem" href="#Supervised-regressors"><span>Supervised regressors</span></a></li><li><a class="tocitem" href="#Supervised-classifiers"><span>Supervised classifiers</span></a></li><li><a class="tocitem" href="#Transformers"><span>Transformers</span></a></li></ul></li><li><a class="tocitem" href="../reference/">Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Quick start</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Quick start</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaAI/LearnDataFrontEnds.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaAI/LearnDataFrontEnds.jl/blob/dev/docs/src/quick_start.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Quick-start"><a class="docs-heading-anchor" href="#Quick-start">Quick start</a><a id="Quick-start-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-start" title="Permalink"></a></h1><ul><li><a href="#Supervised-regressors">Supervised regressors</a></li><li><a href="#Supervised-classifiers">Supervised classifiers</a></li><li><a href="#Transformers">Transformers</a></li></ul><pre><code class="nohighlight hljs">Refer to the front end [docstrings](@ref front_ends) for options ignored below.</code></pre><h2 id="Supervised-regressors"><a class="docs-heading-anchor" href="#Supervised-regressors">Supervised regressors</a><a id="Supervised-regressors-1"></a><a class="docs-heading-anchor-permalink" href="#Supervised-regressors" title="Permalink"></a></h2><p>Supervised regressors handling structured data can typically add the <code>Saffron</code> front end to their LearnAPI.jl implementations.</p><p>For a supervised learner of type <code>MyLearner</code>, with <code>LearnAPI.fit(::MyLearner, data)</code> returning objects of type <code>MyModel</code>, make these declarations:</p><pre><code class="language-julia hljs">using LearnDataFrontEnds
+const frontend = Saffron()
+
+# both methods below return objects with abstract type `Obs`:
+LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
+
+# training data deconstructors:
+LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
+LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+	learner::MyLearner,
+	observations::Obs;
+	verbosity=1,
+	)
+	X = observations.features # p x n matrix
+	y = observations.target   # n-vector (use `Saffron(multitarget=true)` for matrix)
+	feature_names = observations.names
+
+	# do stuff with `X`, `y` and `feature_names`:
+	...
+
+end
+LearnAPI.fit(learner::MyLearner, data; kwargs...) =
+	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="https://juliaai.github.io/LearnAPI.jl/dev/kinds_of_target_proxy/#LearnAPI.KindOfProxy"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.predict"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
+	X = observations.features # p x n matrix
+	names = observations.names # if really needed
+
+	# do stuff with `X`:
+	...
+end
+LearnAPI.predict(model::MyModel, kind_of_proxy, X) =
+	LearnAPI.predict(model, kind_of_proxy, obs(model, X))</code></pre><h2 id="Supervised-classifiers"><a class="docs-heading-anchor" href="#Supervised-classifiers">Supervised classifiers</a><a id="Supervised-classifiers-1"></a><a class="docs-heading-anchor-permalink" href="#Supervised-classifiers" title="Permalink"></a></h2><p>Supervised classifiers handling structured data can typically add the <code>Sage</code> front end to their LearnAPI.jl implementations.</p><p>For a supervised learner of type <code>MyLearner</code>, with <code>LearnAPI.fit(::MyLearner, data)</code> returning objects of type <code>MyModel</code>, make these declarations:</p><pre><code class="language-julia hljs">using LearnDataFrontEnds
+const frontend = Sage()
+
+# both methods below return objects with abstract type `Obs`:
+LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
+LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
+
+# training data deconstructors:
+LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
+LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+    learner::MyLearner,
+    observations::Obs;
+    verbosity=1,
+    )
+    X = observations.features # p x n matrix
+    y = observations.target   # n-vector
+    decoder = observations.decoder
+    classes_seen = observatioins.classes_seen
+    feature_names = observations.names
+
+    # do stuff with `X`, `y` and `feature_names`:
+    # return a `model` object which also stores the `decoder` and/or `classes_seen` 
+	# to make them available to `predict`.
+	...
+end
+LearnAPI.fit(learner::MyLearner, data; kwargs...) =
+    LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="https://juliaai.github.io/LearnAPI.jl/dev/kinds_of_target_proxy/#LearnAPI.KindOfProxy"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.predict"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
+    X = observations.features # p x n matrix
+    names = observations.names # if really needed
+
+    # Do stuff with `X` and `model` to obtain raw `predictions` (a vector of integer
+    # codes for `K = Point`, or an `n x c` matrix of probabilities for `K = Distribution`).
+    # Extract `decoder` or `classes_seen` from `model`.
+    # For `K = Point`, return `decoder.(predictions)`.
+    # For `K = Distribution`, return, say,
+    # `CategoricalDistributions.Univariate(classes_seen, predictions)`.
+    ...
+end
+LearnAPI.predict(model::MyModel, kind_of_proxy, X) = LearnAPI.predict(model,
+    kind_of_proxy, obs(model, X))</code></pre><h2 id="Transformers"><a class="docs-heading-anchor" href="#Transformers">Transformers</a><a id="Transformers-1"></a><a class="docs-heading-anchor-permalink" href="#Transformers" title="Permalink"></a></h2><p>Transformers can typically add the <code>Tarragon</code> front end to their LearnAPI.jl implementations. For simplicity, we assume below that the transformer is not static (i.e., it generalizes to new data).</p><p>For your learners of type <code>MyLearner</code>, with <code>LearnAPI.fit(::MyLearner, data)</code> returning objects of type <code>MyModel</code>, make these declarations:</p><pre><code class="language-julia hljs">using LearnDataFrontEnds
+const frontend = Tarragon()
+
+# both the following return objects with abstract type `Obs`:
+LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
+LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
+
+# training data deconstructor:
+LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+	learner::MyLearner,
+	observations::Obs;
+	verbosity=1,
+	)
+	x = observations.features # p x n matrix
+	feature_names = observations.names
+
+	# do stuff with `x` and `feature_names`:
+	...
+end
+LearnAPI.fit(learner::MyLearner, data; kwargs...) =
+	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.transform"><code>LearnAPI.transform</code></a> implementation will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.transform(model::MyModel, observations::Obs)
+	x = observations.features # p x n matrix
+	feature_names = observations.names # if really needed
+
+	# do stuff with `x`:
+	...
+end
+LearnAPI.transform(model::MyModel, X) = LearnAPI.transform(model, obs(model, X))</code></pre><p>There is no need to overload <a href="https://juliaai.github.io/LearnAPI.jl/dev/features_target_weights/#LearnAPI.features"><code>LearnAPI.features</code></a> for the output of <code>obs</code> but you still need to include <code>:(LearnAPI.features)</code> in the return value of <a href="https://juliaai.github.io/LearnAPI.jl/dev/traits/#LearnAPI.functions"><code>LearnAPI.functions</code></a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../reference/">Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.1 on <span class="colophon-date" title="Tuesday 18 February 2025 03:33">Tuesday 18 February 2025</span>. Using Julia version 1.11.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
