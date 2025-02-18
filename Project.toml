@@ -1,7 +1,7 @@
 name = "LearnDataFrontEnds"
 uuid = "5cca22a3-9356-470e-ba1b-8268d0135a4b"
 authors = ["Anthony D. Blaom <anthony.blaom@gmail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 CategoricalArrays = "324d7699-5711-5eae-9e2f-1d82baa6b597"
