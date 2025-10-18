@@ -112,56 +112,6 @@ function decompose(X, v, _targets::NTuple)
     return swapdims(A, v), collect(names), swapdims(B, v)
 end
 
-"""
-    classes(x)
-
-*Private method.*
-
-Return, as a `CategoricalVector`, all the categorical elements with
-the same pool as `CategoricalValue` `x` (including `x`), with an
-ordering consistent with the pool. Note that `x in classes(x)` is
-always true.
-
-Not to be confused with `levels(x.pool)`. See the example below.
-
-Also, overloaded for `x` a `CategoricalArray`, `CategoricalPool`, and for views of
-`CategoricalArray`.
-
-    julia>  v = categorical(['c', 'b', 'c', 'a'])
-    4-element CategoricalArrays.CategoricalArray{Char,1,UInt32}:
-     'c'
-     'b'
-     'c'
-     'a'
-
-    julia> levels(v)
-    3-element Array{Char,1}:
-     'a'
-     'b'
-     'c'
-
-    julia> x = v[4]
-    CategoricalArrays.CategoricalValue{Char,UInt32} 'a'
-
-    julia> classes(x)
-    3-element CategoricalArrays.CategoricalArray{Char,1,UInt32}:
-     'a'
-     'b'
-     'c'
-
-    julia> levels(x.pool)
-    3-element Array{Char,1}:
-     'a'
-     'b'
-     'c'
-
-"""
-classes(p::CategoricalArrays.CategoricalPool) = [p[i] for i in 1:length(p)]
-classes(x::CategoricalArrays.CategoricalValue) = classes(CategoricalArrays.pool(x))
-classes(v::CategoricalArrays.CategoricalArray) = classes(CategoricalArrays.pool(v))
-classes(v::SubArray{<:Any, <:Any, <:CategoricalArrays.CategoricalArray}) = classes(parent(v))
-
-
 struct CategoricalDecoder{V,R}
     classes::CategoricalArrays.CategoricalVector{
         V,
@@ -193,7 +143,7 @@ pool as `x`.
 *Warning:* There is no guarantee that `levelcode.(d.(u)) == u` will always holds.
 
 """
-decoder(x) = CategoricalDecoder(classes(x))
+decoder(x) = CategoricalDecoder(CategoricalArrays.levels(x))
 
 (d::CategoricalDecoder{V,R})(i::Integer) where {V,R} =
     CategoricalArrays.CategoricalValue{V,R}(d.classes[i])

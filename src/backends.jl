@@ -31,8 +31,8 @@ If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, then
 `observations.target` has an integer element type controlled by `code_type`, and we
 additionally have:
 
-- `observations.classes`: A categorical vector of the ordered target classes, as actually
-  seen in the user-supplied target, with the full pool of classes available by applying
+- `observations.classes`: A categorical vector of the ordered target levels, as actually
+  seen in the user-supplied target, with the full pool of levels available by applying
   `Categorical.levels` to the result. The corresponding integer codes will be
   `sort(unique(observations.target))`.
 

@@ -7,7 +7,7 @@ import CategoricalArrays
     y = [3, 2, 1]
     names = [:x1, :x2]
     ycat = CategoricalArrays.categorical(y)
-    c = LearnDataFrontEnds.classes(ycat)
+    c = CategoricalArrays.levels(ycat)
     d = LearnDataFrontEnds.decoder(ycat)
     mime =  MIME"text/plain"()
 
