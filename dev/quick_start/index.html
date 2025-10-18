@@ -8,7 +8,7 @@ LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
-LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="@ref"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
 	learner::MyLearner,
 	observations::Obs;
 	verbosity=1,
@@ -22,7 +22,7 @@ LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, front
 
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
-	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="https://juliaai.github.io/LearnAPI.jl/dev/kinds_of_target_proxy/#LearnAPI.KindOfProxy"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.predict"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
+	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="@ref"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="@ref"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
 	X = observations.features # p x n matrix
 	names = observations.names # if really needed
 
@@ -39,7 +39,7 @@ LearnAPI.obs(model::MyModel, data) = obs(model, data, frontend)
 
 # training data deconstructors:
 LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)
-LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, frontend)</code></pre><p>Your <a href="@ref"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
     learner::MyLearner,
     observations::Obs;
     verbosity=1,
@@ -56,7 +56,7 @@ LearnAPI.target(learner::MyLearner, data) = LearnAPI.target(learner, data, front
 	...
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
-    LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="https://juliaai.github.io/LearnAPI.jl/dev/kinds_of_target_proxy/#LearnAPI.KindOfProxy"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.predict"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
+    LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>For each <a href="@ref"><code>KindOfProxy</code></a> subtype <code>K</code> to be supported (e.g., <code>Point</code>), your <a href="@ref"><code>LearnAPI.predict</code></a> implementation(s) will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.predict(model::MyModel, :K, observations::Obs)
     X = observations.features # p x n matrix
     names = observations.names # if really needed
 
@@ -77,7 +77,7 @@ LearnAPI.obs(learner::MyLearner, data) = fitobs(learner, data, frontend)
 LearnAPI.obs(model::MyModel, X) = obs(model, data, frontend)
 
 # training data deconstructor:
-LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/fit_update/#LearnAPI.fit"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
+LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, frontend)</code></pre><p>Your <a href="@ref"><code>LearnAPI.fit</code></a> implementation will then look like this:</p><pre><code class="language-julia hljs">function LearnAPI.fit(
 	learner::MyLearner,
 	observations::Obs;
 	verbosity=1,
@@ -89,11 +89,11 @@ LearnAPI.features(learner::MyLearner, data) = LearnAPI.features(learner, data, f
 	...
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
-	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>Your <a href="https://juliaai.github.io/LearnAPI.jl/dev/predict_transform/#LearnAPI.transform"><code>LearnAPI.transform</code></a> implementation will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.transform(model::MyModel, observations::Obs)
+	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)</code></pre><p>Your <a href="@ref"><code>LearnAPI.transform</code></a> implementation will look like this:</p><pre><code class="language-julia hljs">function LearnAPI.transform(model::MyModel, observations::Obs)
 	x = observations.features # p x n matrix
 	feature_names = observations.names # if really needed
 
 	# do stuff with `x`:
 	...
 end
-LearnAPI.transform(model::MyModel, X) = LearnAPI.transform(model, obs(model, X))</code></pre><p>There is no need to overload <a href="https://juliaai.github.io/LearnAPI.jl/dev/features_target_weights/#LearnAPI.features"><code>LearnAPI.features</code></a> for the output of <code>obs</code> but you still need to include <code>:(LearnAPI.features)</code> in the return value of <a href="https://juliaai.github.io/LearnAPI.jl/dev/traits/#LearnAPI.functions"><code>LearnAPI.functions</code></a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../reference/">Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.8.1 on <span class="colophon-date" title="Tuesday 18 February 2025 02:53">Tuesday 18 February 2025</span>. Using Julia version 1.11.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+LearnAPI.transform(model::MyModel, X) = LearnAPI.transform(model, obs(model, X))</code></pre><p>There is no need to overload <a href="@ref"><code>LearnAPI.features</code></a> for the output of <code>obs</code> but you still need to include <code>:(LearnAPI.features)</code> in the return value of <a href="@ref"><code>LearnAPI.functions</code></a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../reference/">Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Saturday 18 October 2025 23:18">Saturday 18 October 2025</span>. Using Julia version 1.12.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
