@@ -207,7 +207,7 @@ end
 end
 
 
-# # A CONSANT CLASSIFIER USING SAFFRON FRONT END
+# # A CONSTANT CLASSIFIER USING SAFFRON FRONT END
 
 # We need this for integration tests to follow.
 
