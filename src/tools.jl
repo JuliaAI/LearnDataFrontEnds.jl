@@ -113,7 +113,7 @@ function decompose(X, v, _targets::NTuple)
 end
 
 struct CategoricalDecoder{V,R}
-    classes::CategoricalArrays.CategoricalVector{
+    levels::CategoricalArrays.CategoricalVector{
         V,
         R,
         V,
@@ -146,4 +146,4 @@ pool as `x`.
 decoder(x) = CategoricalDecoder(CategoricalArrays.levels(x))
 
 (d::CategoricalDecoder{V,R})(i::Integer) where {V,R} =
-    CategoricalArrays.CategoricalValue{V,R}(d.classes[i])
+    CategoricalArrays.CategoricalValue{V,R}(d.levels[i])

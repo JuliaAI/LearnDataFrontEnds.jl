@@ -31,7 +31,7 @@ If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, then
 `observations.target` has an integer element type controlled by `code_type`, and we
 additionally have:
 
-- `observations.classes`: A categorical vector of the ordered target levels, as actually
+- `observations.levels`: A categorical vector of the ordered target levels, as actually
   seen in the user-supplied target, with the full pool of levels available by applying
   `Categorical.levels` to the result. The corresponding integer codes will be
   `sort(unique(observations.target))`.
@@ -111,7 +111,7 @@ struct SageObs{F,T,E,D} <: Obs
     features::F  # p x n
     names::Vector{Symbol}
     target::T
-    classes_seen::CategoricalArrays.CategoricalVector{E}
+    levels_seen::CategoricalArrays.CategoricalVector{E}
     decoder::D
 end
 
@@ -122,8 +122,8 @@ function Base.show(io::IO, ::MIME"text/plain", observations::SageObs)
     println(io, "  features :: $(typeof(A))($(size(A)))")
     println(io, "  names: $(observations.names)")
     println(io, "  target :: $(typeof(y))($(size(y)))")
-    println(io, "  classes_seen: "*
-        "$(CategoricalArrays.unwrap.(observations.classes_seen)) "*
+    println(io, "  levels_seen: "*
+        "$(CategoricalArrays.unwrap.(observations.levels_seen)) "*
         "(categorical vector with complete pool)")
     print(io, "  decoder: <callable>")
 end
@@ -133,7 +133,7 @@ Base.getindex(observations::SageObs, idx) =
         MLCore.getobs(observations.features, idx),
         observations.names,
         MLCore.getobs(observations.target, idx),
-        observations.classes_seen,
+        observations.levels_seen,
         observations.decoder,
     )
 
