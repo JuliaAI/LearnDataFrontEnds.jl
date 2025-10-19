@@ -31,16 +31,85 @@ If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, then
 `observations.target` has an integer element type controlled by `code_type`, and we
 additionally have:
 
-- `observations.classes`: A categorical vector of the ordered target classes, as actually
-  seen in the user-supplied target, with the full pool of classes available by applying
-  `Categorical.levels` to the result. The corresponding integer codes will be
-  `sort(unique(observations.target))`.
+- `observations.levels`: A categorical vector of the ordered target levels, as actually
+  seen in the user-supplied target. The corresponding integer codes will be
+  `sort(unique(observations.target))`. To get the full pool of levels, apply
+  `CategoricalArrays.levels` to `observations.levels_seen`; see the example below.
 
 - `observations.decoder`: A callable function that converts an integer code back to the
   original `CategoricalValue` it represents.
 
 Pass the first onto `predict` for making probabilistic predictions, and the second for
 point predictions; see [`Sage`](@ref) for details.
+
+# Extended help
+
+In the example below, `observations` implements the full `Obs` interface described above,
+for a learner implementing the `Sage` front end:
+
+```julia-repl
+using LearnAPI, LearnDataFrontEnds, LearnTestAPI
+using CategoricalDistributions, CategoricalArrays, DataFrames
+X = DataFrame(rand(10, 3), :auto)
+y = categorical(collect("ababababac"))
+learner = LearnTestAPI.ConstantClassifier()
+observations = obs(learner, (X[1:9,:], y[1:9]))
+
+julia> observations.features
+3×9 Matrix{Float64}:
+ 0.234043  0.526468  0.227417  0.956471    …  0.00587146  0.169291  0.353518  0.402631
+ 0.631083  0.151317  0.781049  0.00320728     0.756519    0.15317   0.452169  0.127005
+ 0.285315  0.347433  0.69174   0.516915       0.900343    0.404006  0.448986  0.962649
+
+julia> yint = observations.target
+9-element Vector{UInt32}:
+ 0x00000001
+ 0x00000002
+ 0x00000001
+ 0x00000002
+ 0x00000001
+ 0x00000002
+ 0x00000001
+ 0x00000002
+ 0x00000001
+
+julia> observations.levels_seen
+2-element CategoricalArray{Char,1,UInt32}:
+ 'a'
+ 'b'
+
+julia> sort(unique(observations.target))
+2-element Vector{UInt32}:
+ 0x00000001
+ 0x00000002
+
+julia> observations.levels_seen |> levels
+3-element CategoricalArray{Char,1,UInt32}:
+ 'a'
+ 'b'
+ 'c'
+
+julia> observations.decoder.(yint)
+9-element CategoricalArray{Char,1,UInt32}:
+ 'a'
+ 'b'
+ 'a'
+ 'b'
+ 'a'
+ 'b'
+ 'a'
+ 'b'
+ 'a'
+
+julia> d = UnivariateFinite(observations.levels_seen, [0.4, 0.6])
+UnivariateFinite{Multiclass{3}}(a=>0.4, b=>0.6)
+
+julia> levels(d)
+3-element CategoricalArray{Char,1,UInt32}:
+ 'a'
+ 'b'
+ 'c'
+```
 
 """
 abstract type Obs end
@@ -111,7 +180,7 @@ struct SageObs{F,T,E,D} <: Obs
     features::F  # p x n
     names::Vector{Symbol}
     target::T
-    classes_seen::CategoricalArrays.CategoricalVector{E}
+    levels_seen::CategoricalArrays.CategoricalVector{E}
     decoder::D
 end
 
@@ -122,8 +191,8 @@ function Base.show(io::IO, ::MIME"text/plain", observations::SageObs)
     println(io, "  features :: $(typeof(A))($(size(A)))")
     println(io, "  names: $(observations.names)")
     println(io, "  target :: $(typeof(y))($(size(y)))")
-    println(io, "  classes_seen: "*
-        "$(CategoricalArrays.unwrap.(observations.classes_seen)) "*
+    println(io, "  levels_seen: "*
+        "$(CategoricalArrays.unwrap.(observations.levels_seen)) "*
         "(categorical vector with complete pool)")
     print(io, "  decoder: <callable>")
 end
@@ -133,7 +202,7 @@ Base.getindex(observations::SageObs, idx) =
         MLCore.getobs(observations.features, idx),
         observations.names,
         MLCore.getobs(observations.target, idx),
-        observations.classes_seen,
+        observations.levels_seen,
         observations.decoder,
     )
 

@@ -104,12 +104,12 @@ function LearnAPI.fit(
     X = observations.features # p x n matrix
     y = observations.target   # n-vector or q x n matrix
     decoder = observations.decoder
-    classes_seen = observations.classes_seen
+    levels_seen = observations.levels_seen
     feature_names = observations.names
 
     # do stuff with `X`, `y` and `feature_names`:
     # return a `model` object which also stores the `decoder` and/or
-    # `classes_seen` to make them available to `predict`.
+    # `levels_seen` to make them available to `predict`.
     ...
 
 end
@@ -127,10 +127,10 @@ function LearnAPI.predict(model::MyModel, :K, observations::Obs)
 
     # Do stuff with `X` and `model` to obtain raw `predictions` (a vector of integer
     # codes for `K = Point`, or an `n x c` matrix of probabilities for `K = Distribution`).
-    # Extract `decoder` or `classes_seen` from `model`.
+    # Extract `decoder` or `levels_seen` from `model`.
     # For `K = Point`, return `decoder.(predictions)`.
     # For `K = Distribution`, return, say,
-    # `CategoricalDistributions.Univariate(classes_seen, predictions)`.
+    # `CategoricalDistributions.Univariate(levels_seen, predictions)`.
     ...
 end
 LearnAPI.predict(model::MyModel, kind_of_proxy, X) = LearnAPI.predict(model,

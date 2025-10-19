@@ -150,13 +150,13 @@ function finalize(x, names, y, int)  # here `int` is `levelcode` or `refcode` fu
         CategoricalArrays.CategoricalArray,
         SubArray{<:Any, <:Any, <:CategoricalArrays.CategoricalArray},
     } || throw(ERR_EXPECTED_CATEGORICAL)
-    l = LearnDataFrontEnds.classes(y)
+    l = CategoricalArrays.levels(y)
     u = unique(y)
     mask = map(in(u), l)
-    _classes_seen = l[mask]
+    _levels_seen = l[mask]
     _decoder = LearnDataFrontEnds.decoder(l)
 
-    return SageObs(x, names, int.(y), _classes_seen, _decoder)
+    return SageObs(x, names, int.(y), _levels_seen, _decoder)
 end
 
 # for input `(x::AbstractMatrix, y::MatrixOrVector)`:

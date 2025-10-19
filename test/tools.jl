@@ -8,8 +8,9 @@ import LearnDataFrontEnds: DoView, DontView, Multitarget, Unitarget
 using CategoricalArrays
 using Random
 using StableRNGs
-import LearnDataFrontEnds: classes,  decoder
+import LearnDataFrontEnds: decoder
 
+# developers, use this to work locally:
 # include("_some_learners.jl")
 
 @testset "decompose" begin
@@ -79,17 +80,6 @@ end
 
 rng = StableRNGs.StableRNG(123)
 
-@testset "classes" begin
-    v = categorical(collect("asqfasqffqsaaaa"), ordered=true)
-    @test classes(v[1]) == levels(v)
-    @test classes(v) == levels(v)
-    levels!(v, reverse(levels(v)))
-    @test classes(v[1]) == levels(v)
-    @test classes(v) == levels(v)
-    vsub = view(v, 1:2)
-    @test classes(vsub) == classes(v)
-end
-
 const int = CategoricalArrays.refcode
 
 @testset "decoder" begin
@@ -123,7 +113,7 @@ const int = CategoricalArrays.refcode
     e = decoder(y)
     @test e.(int.(W)) == W
 
-    @test int.(classes(y)) == 1:length(classes(x))
+    @test int.(levels(y)) == 1:length(levels(x))
 
     v = categorical(['a', 'b', 'c'], ordered=true)
 end
