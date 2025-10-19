@@ -15,6 +15,5 @@ LearnDataFrontEnds.feature_names
 LearnDataFrontEnds.swapdims
 LearnDataFrontEnds.decoder
 LearnDataFrontEnds.decompose
-LearnDataFrontEnds.classes
 LearnDataFrontEnds.canonify
 ```

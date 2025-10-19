@@ -62,8 +62,8 @@ f = @formula(t ~ c + a)
     @test o.names == [:x1, :x2]
     @test o.target == repeat([1, 2, 1], n)
     @test eltype(o.target) == Int
-    @test o.classes_seen == CA.levels(y)[1:2]
-    @test o.classes_seen isa CA.CategoricalArray
+    @test o.levels_seen == CA.levels(y)[1:2]
+    @test o.levels_seen isa CA.CategoricalArray
     yy = o.decoder.(o.target)
     @test  yy == y
     @test yy isa CA.CategoricalVector
@@ -87,8 +87,8 @@ end
     @test o.names == [:c, :a]
     @test o.target == repeat([1, 2, 1], n)
     @test eltype(o.target) == Int
-    @test o.classes_seen == CA.levels(y)[1:2]
-    @test o.classes_seen isa CA.CategoricalArray
+    @test o.levels_seen == CA.levels(y)[1:2]
+    @test o.levels_seen isa CA.CategoricalArray
     yy = o.decoder.(o.target)
     @test  yy == y
     @test yy isa CA.CategoricalVector
@@ -112,8 +112,8 @@ end
     @test o.features == x
     @test o.target == repeat([1, 2, 1], n)
     @test eltype(o.target) == Int
-    @test o.classes_seen == CA.levels(y)[1:2]
-    @test o.classes_seen isa CA.CategoricalArray
+    @test o.levels_seen == CA.levels(y)[1:2]
+    @test o.levels_seen isa CA.CategoricalArray
     yy = o.decoder.(o.target)
     @test  yy == y
     @test yy isa CA.CategoricalVector
@@ -138,8 +138,8 @@ end
     @test o.names == [:c, :a]
     @test o.target == repeat([1, 2, 1], n)
     @test eltype(o.target) == Int
-    @test o.classes_seen == CA.levels(y)[1:2]
-    @test o.classes_seen isa CA.CategoricalArray
+    @test o.levels_seen == CA.levels(y)[1:2]
+    @test o.levels_seen isa CA.CategoricalArray
     yy = o.decoder.(o.target)
     @test  yy == y
     @test yy isa CA.CategoricalVector
@@ -163,8 +163,8 @@ end
     @test o.names == [:c, :a]
     @test o.target == repeat([1, 2, 1], n)
     @test eltype(o.target) == Int
-    @test o.classes_seen == CA.levels(y)[1:2]
-    @test o.classes_seen isa CA.CategoricalArray
+    @test o.levels_seen == CA.levels(y)[1:2]
+    @test o.levels_seen isa CA.CategoricalArray
     yy = o.decoder.(o.target)
     @test  yy == y
     @test yy isa CA.CategoricalVector
@@ -223,7 +223,7 @@ struct ConstantClassifierFitted
     learner::ConstantClassifier
     probabilities
     names::Vector{Symbol}
-    classes_seen
+    levels_seen
     codes_seen
     decoder
 end
@@ -256,7 +256,7 @@ function LearnAPI.fit(learner::ConstantClassifier, observations::Obs; verbosity=
 
     y = observations.target # integer "codes"
     names = observations.names
-    classes_seen = observations.classes_seen
+    levels_seen = observations.levels_seen
     codes_seen = sort(unique(y))
     decoder = observations.decoder
 
@@ -268,7 +268,7 @@ function LearnAPI.fit(learner::ConstantClassifier, observations::Obs; verbosity=
         learner,
         probabilities,
         names,
-        classes_seen,
+        levels_seen,
         codes_seen,
         decoder,
     )
@@ -290,7 +290,7 @@ function LearnAPI.predict(model::ConstantClassifierFitted, ::Distribution, obser
     probs = model.probabilities
     # repeat vertically to get rows of a matrix:
     probs_matrix = reshape(repeat(probs, n), (length(probs), n))'
-    return CategoricalDistributions.UnivariateFinite(model.classes_seen, probs_matrix)
+    return CategoricalDistributions.UnivariateFinite(model.levels_seen, probs_matrix)
 end
 LearnAPI.predict(model::ConstantClassifierFitted, ::Distribution, Xnew) =
         predict(model, Distribution(), obs(model, Xnew))

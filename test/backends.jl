@@ -7,7 +7,7 @@ import CategoricalArrays
     y = [3, 2, 1]
     names = [:x1, :x2]
     ycat = CategoricalArrays.categorical(y)
-    c = LearnDataFrontEnds.classes(ycat)
+    c = CategoricalArrays.levels(ycat)
     d = LearnDataFrontEnds.decoder(ycat)
     mime =  MIME"text/plain"()
 
@@ -18,7 +18,7 @@ import CategoricalArrays
         "[:x1, :x2]\n  target :: Vector{Int64}((3,))"
     @test sprint(show, mime, LearnDataFrontEnds.SageObs(x, names, y, c, d)) ==
         "SageObs\n  features :: Matrix{Int64}((2, 3))\n  names: "*
-        "[:x1, :x2]\n  target :: Vector{Int64}((3,))\n  classes_seen: "*
+        "[:x1, :x2]\n  target :: Vector{Int64}((3,))\n  levels_seen: "*
         "[1, 2, 3] (categorical vector with complete pool)\n  decoder: <callable>"
 end
 

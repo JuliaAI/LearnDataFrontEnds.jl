@@ -4,7 +4,7 @@
 - [Supervised classifiers](@ref)
 - [Transformers](@ref)
 
-	Refer to the front end [docstrings](@ref front_ends) for options ignored below.
+    Refer to the front end [docstrings](@ref front_ends) for options ignored below.
 
 ## Supervised regressors
 
@@ -31,20 +31,20 @@ Your [`LearnAPI.fit`](@ref) implementation will then look like this:
 
 ```julia
 function LearnAPI.fit(
-	learner::MyLearner,
-	observations::Obs;
-	verbosity=1,
-	)
-	X = observations.features # p x n matrix
-	y = observations.target   # n-vector (use `Saffron(multitarget=true)` for matrix)
-	feature_names = observations.names
+    learner::MyLearner,
+    observations::Obs;
+    verbosity=1,
+    )
+    X = observations.features # p x n matrix
+    y = observations.target   # n-vector (use `Saffron(multitarget=true)` for matrix)
+    feature_names = observations.names
 
-	# do stuff with `X`, `y` and `feature_names`:
-	...
+    # do stuff with `X`, `y` and `feature_names`:
+    ...
 
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
-	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)
+    LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)
 ```
 
 For each [`KindOfProxy`](@ref) subtype `K` to be supported (e.g., `Point`), your
@@ -52,14 +52,14 @@ For each [`KindOfProxy`](@ref) subtype `K` to be supported (e.g., `Point`), your
 
 ```julia
 function LearnAPI.predict(model::MyModel, :K, observations::Obs)
-	X = observations.features # p x n matrix
-	names = observations.names # if really needed
+    X = observations.features # p x n matrix
+    names = observations.names # if really needed
 
-	# do stuff with `X`:
-	...
+    # do stuff with `X`:
+    ...
 end
 LearnAPI.predict(model::MyModel, kind_of_proxy, X) =
-	LearnAPI.predict(model, kind_of_proxy, obs(model, X))
+    LearnAPI.predict(model, kind_of_proxy, obs(model, X))
 ```
 
 ## Supervised classifiers
@@ -94,13 +94,13 @@ function LearnAPI.fit(
     X = observations.features # p x n matrix
     y = observations.target   # n-vector
     decoder = observations.decoder
-    classes_seen = observatioins.classes_seen
+    levels_seen = observations.levels_seen
     feature_names = observations.names
 
     # do stuff with `X`, `y` and `feature_names`:
-    # return a `model` object which also stores the `decoder` and/or `classes_seen` 
-	# to make them available to `predict`.
-	...
+    # return a `model` object which also stores the `decoder` and/or `levels_seen` 
+    # to make them available to `predict`.
+    ...
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
     LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)
@@ -116,10 +116,10 @@ function LearnAPI.predict(model::MyModel, :K, observations::Obs)
 
     # Do stuff with `X` and `model` to obtain raw `predictions` (a vector of integer
     # codes for `K = Point`, or an `n x c` matrix of probabilities for `K = Distribution`).
-    # Extract `decoder` or `classes_seen` from `model`.
+    # Extract `decoder` or `levels_seen` from `model`.
     # For `K = Point`, return `decoder.(predictions)`.
     # For `K = Distribution`, return, say,
-    # `CategoricalDistributions.Univariate(classes_seen, predictions)`.
+    # `CategoricalDistributions.Univariate(levels_seen, predictions)`.
     ...
 end
 LearnAPI.predict(model::MyModel, kind_of_proxy, X) = LearnAPI.predict(model,
@@ -152,29 +152,29 @@ Your [`LearnAPI.fit`](@ref) implementation will then look like this:
 
 ```julia
 function LearnAPI.fit(
-	learner::MyLearner,
-	observations::Obs;
-	verbosity=1,
-	)
-	x = observations.features # p x n matrix
-	feature_names = observations.names
+    learner::MyLearner,
+    observations::Obs;
+    verbosity=1,
+    )
+    x = observations.features # p x n matrix
+    feature_names = observations.names
 
-	# do stuff with `x` and `feature_names`:
-	...
+    # do stuff with `x` and `feature_names`:
+    ...
 end
 LearnAPI.fit(learner::MyLearner, data; kwargs...) =
-	LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)
+    LearnAPI.fit(learner, LearnAPI.obs(learner, data); kwargs...)
 ```
 
 Your [`LearnAPI.transform`](@ref) implementation will look like this:
 
 ```julia
 function LearnAPI.transform(model::MyModel, observations::Obs)
-	x = observations.features # p x n matrix
-	feature_names = observations.names # if really needed
+    x = observations.features # p x n matrix
+    feature_names = observations.names # if really needed
 
-	# do stuff with `x`:
-	...
+    # do stuff with `x`:
+    ...
 end
 LearnAPI.transform(model::MyModel, X) = LearnAPI.transform(model, obs(model, X))
 ```
