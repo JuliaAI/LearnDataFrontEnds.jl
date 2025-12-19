@@ -31,8 +31,8 @@ If [`Sage`](@ref)`(multitarget=..., code_type=...)` has been implemented, then
 `observations.target` has an integer element type controlled by `code_type`, and we
 additionally have:
 
-- `observations.levels`: A categorical vector of the ordered target levels, as actually
-  seen in the user-supplied target. The corresponding integer codes will be
+- `observations.levels_seen`: A categorical vector of the ordered target levels, as
+  actually seen in the user-supplied target. The corresponding integer codes will be
   `sort(unique(observations.target))`. To get the full pool of levels, apply
   `CategoricalArrays.levels` to `observations.levels_seen`; see the example below.
 
